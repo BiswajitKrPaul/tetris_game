@@ -29,5 +29,5 @@ class OBlock extends GameBlock {
             SubBlock(0, 1),
             SubBlock(1, 1),
           ],
-        ], color: Colors.blue[300], orientationIndex: orientationIndex);
+        ], color: Colors.blue[900], orientationIndex: orientationIndex);
 }

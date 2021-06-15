@@ -19,7 +19,7 @@ class GameBlock {
   int orientationIndex;
 
   GameBlock({this.orientations, Color color, this.orientationIndex}) {
-    x = 3;
+    x = 5;
     y = -height;
     this.color = color;
   }
@@ -75,16 +75,16 @@ class GameBlock {
   void move(BlockMovement blockMovement) {
     switch (blockMovement) {
       case BlockMovement.DOWN:
-        y++;
+        y += 1;
         break;
       case BlockMovement.UP:
-        y--;
+        y -= 1;
         break;
       case BlockMovement.RIGHT:
-        x++;
+        x += 1;
         break;
       case BlockMovement.LEFT:
-        x--;
+        x -= 1;
         break;
       case BlockMovement.ROTATE_CLOCKWISE:
         orientationIndex = (++orientationIndex) % 4;

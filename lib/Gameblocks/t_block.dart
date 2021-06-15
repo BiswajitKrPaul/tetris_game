@@ -9,5 +9,5 @@ class TBlock extends GameBlock {
           [SubBlock(1, 0), SubBlock(0, 1), SubBlock(1, 1), SubBlock(1, 2)],
           [SubBlock(1, 0), SubBlock(0, 1), SubBlock(1, 1), SubBlock(2, 1)],
           [SubBlock(0, 0), SubBlock(0, 1), SubBlock(1, 1), SubBlock(0, 2)],
-        ], color: Colors.blue, orientationIndex: orientationIndex);
+        ], color: Colors.blue[300], orientationIndex: orientationIndex);
 }

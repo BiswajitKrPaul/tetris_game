@@ -7,6 +7,8 @@ const Color kPrimaryColor400 = Color(0xFF03396c);
 const Color kPrimaryColor500 = Color(0xFF011f4b);
 const int kTotalBlockRow = 12;
 const int kTotalBlockColumn = 20;
+const int kGameAreaBorder = 2;
+const int kGameSpeed = 300;
 const TextStyle kLableStyle = TextStyle(
   color: Colors.white,
   fontSize: 40,
