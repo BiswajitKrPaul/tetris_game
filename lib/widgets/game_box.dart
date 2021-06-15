@@ -8,8 +8,11 @@ import 'package:tetris_game/Gameblocks/j_block.dart';
 import 'package:tetris_game/Gameblocks/l_block.dart';
 import 'package:tetris_game/Gameblocks/o_block.dart';
 import 'package:tetris_game/Gameblocks/s_block.dart';
+import 'package:tetris_game/Gameblocks/sub_block.dart';
 import 'package:tetris_game/Gameblocks/t_block.dart';
 import '../Constants/constants.dart';
+
+enum Collision { LANDED, LANDED_BLOCK, HIT_WALL, HIT_BLOCK, NONE }
 
 class GameBox extends StatefulWidget {
   GameBox({Key key}) : super(key: key);
@@ -23,16 +26,22 @@ class GameBoxState extends State<GameBox> {
   GlobalKey _gameAreaKey = GlobalKey();
   Duration duration = Duration(milliseconds: kGameSpeed);
   Timer timer;
+  List<SubBlock> oldSubBlocks;
 
   GameBlock gameBlock;
 
+  bool checkAtBottom() {
+    return gameBlock.y + gameBlock.height == kTotalBlockColumn;
+  }
+
   void startGame() {
     if (!isPlaying) {
+      oldSubBlocks = [];
       isPlaying = true;
       RenderBox renderBox = _gameAreaKey.currentContext.findRenderObject();
       subblockwidth =
           (renderBox.size.width - kGameAreaBorder * 2) / kTotalBlockRow;
-      print(subblockwidth);
+
       gameBlock = getNewGameBlock();
 
       timer = Timer.periodic(duration, onPlay);
@@ -47,9 +56,25 @@ class GameBoxState extends State<GameBox> {
   }
 
   void onPlay(timer) {
-    setState(() {
-      gameBlock.move(BlockMovement.DOWN);
-    });
+    var status;
+    setState(
+      () {
+        if (checkAtBottom()) {
+          status = Collision.LANDED;
+        } else {
+          gameBlock.move(BlockMovement.DOWN);
+        }
+
+        if (status == Collision.LANDED) {
+          gameBlock.subBlockOrientations.forEach((subblock) {
+            subblock.x += gameBlock.x;
+            subblock.y += gameBlock.y;
+            oldSubBlocks.add(subblock);
+          });
+          gameBlock = getNewGameBlock();
+        }
+      },
+    );
   }
 
   Widget getPositionedSquareContainer(int x, int y, Color color) {
@@ -82,6 +107,12 @@ class GameBoxState extends State<GameBox> {
         );
       },
     );
+
+    oldSubBlocks?.forEach((element) {
+      subblocks.add(
+          getPositionedSquareContainer(element.x, element.y, element.color));
+    });
+
     return Stack(
       children: subblocks,
     );
@@ -128,7 +159,7 @@ class GameBoxState extends State<GameBox> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
             border: Border.all(
-              width: 3,
+              width: kGameAreaBorder.toDouble(),
               color: kPrimaryColor500,
             ),
           ),

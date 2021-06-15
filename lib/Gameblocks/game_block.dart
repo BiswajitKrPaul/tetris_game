@@ -37,7 +37,7 @@ class GameBlock {
 
   // Getting the color for 1st subblock
   get color {
-    return orientations[0][0];
+    return orientations[0][0].color;
   }
 
   // Getting the Orientation list of the current index block
