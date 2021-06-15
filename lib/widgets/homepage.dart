@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tetris_game/Constants/constants.dart';
+import 'package:tetris_game/widgets/game_box.dart';
 import 'package:tetris_game/widgets/score_part.dart';
 
 class MyHomeApp extends StatefulWidget {
@@ -13,7 +14,8 @@ class _MyHomeAppState extends State<MyHomeApp> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Tetris',
+          'T E T R I S',
+          style: kLableStyle,
         ),
         centerTitle: true,
       ),
@@ -22,8 +24,9 @@ class _MyHomeAppState extends State<MyHomeApp> {
         children: [
           Flexible(
             flex: 4,
-            child: Container(
-              color: Colors.red,
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: GameBox(),
             ),
           ),
           Flexible(
