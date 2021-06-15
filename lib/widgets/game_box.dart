@@ -89,7 +89,9 @@ class GameBoxState extends State<GameBox> {
     rowsToRemove.forEach((subblock) {
       oldSubBlocks.removeWhere((element) => element.y == subblock);
       oldSubBlocks.forEach((subBlock) {
-        ++subBlock.y;
+        if (subBlock.y < subblock) {
+          ++subBlock.y;
+        }
       });
     });
   }
