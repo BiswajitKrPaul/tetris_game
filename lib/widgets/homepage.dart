@@ -14,7 +14,6 @@ class _MyHomeAppState extends State<MyHomeApp> {
   GlobalKey<GameBoxState> key2 = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    int gameScore = context.read(score).state;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -51,10 +50,13 @@ class _MyHomeAppState extends State<MyHomeApp> {
                         ),
                       ),
                       Flexible(
-                        child: Text(
-                          '$gameScore',
-                          style: kLableStyle,
-                        ),
+                        child: Consumer(builder: (ctx, watch, child) {
+                          int gameScore = watch(score).state;
+                          return Text(
+                            '$gameScore',
+                            style: kLableStyle,
+                          );
+                        }),
                       )
                     ],
                   ),
