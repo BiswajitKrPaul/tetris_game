@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tetris_game/Constants/constants.dart';
 import 'package:tetris_game/widgets/game_box.dart';
 import 'package:tetris_game/widgets/game_button.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyHomeApp extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
   GlobalKey<GameBoxState> key2 = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    int gameScore = context.read(score).state;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -50,7 +52,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
                       ),
                       Flexible(
                         child: Text(
-                          '0',
+                          '$gameScore',
                           style: kLableStyle,
                         ),
                       )
